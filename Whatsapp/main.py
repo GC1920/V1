@@ -42,6 +42,15 @@ def post_response(message):
 
     pt.typewrite("\n", interval=.01)
 
+#O cardapio
+def make_a_wish():
+
+    m = """Ola, eu sou seu assistente virtual, seja bem-vindo ao suporte do DTI. Por favor, selecione e me informe um numero que corresponde ao seu problema:
+            \n1 - Lorem ipsum sit amet\n2 - Lorem ipsum sit amet\n3 - Lorem ipsum sit amet\n4 - Lorem ipsum sit amet\n5 - Lorem ipsum sit amet
+            """
+
+    return m
+
 #Processo de mensagens
 def process_response(message):
 
@@ -73,14 +82,12 @@ def process_response(message):
 
         case _: 
 
-            return """Ola, eu sou seu assistente virtual, seja bem-vindo ao suporte do DTI. 
-            Por favor, selecione e me informe um numero que corresponde ao seu problema:
-            \n1 - Lorem ipsum sit amet\n2 - Lorem ipsum sit amet\n3 - Lorem ipsum sit amet\n4 - Lorem ipsum sit amet\n5 - Lorem ipsum sit amet
-            """
+            return "Desculpe, nao consegui entender seu problema. Caso sua opcao nao esteja presente, por favor aguarde que seu problema sera repassado para a administracao e alguem ira atende-lo :)"
 
 #Checar se tem novas mensagens
 def check_for_new_messages():
     pt.moveTo(x + 100, y - 26, duration=.5)
+    first_msg = 0
 
     while True:
 
@@ -88,6 +95,7 @@ def check_for_new_messages():
             position = pt.locateOnScreen("green_circle.png", confidence=.7)
 
             if position is not None:
+                first_msg = 0
                 pt.moveTo(position)
                 pt.moveRel(-100, 0)
                 pt.click()
@@ -99,7 +107,16 @@ def check_for_new_messages():
 
         if pt.pixelMatchesColor(int(x + 100), int(y - 26), (255, 255, 255), tolerance=10):
 
-            processed_message = process_response(get_message())
+            if first_msg == 0:
+
+                processed_message = make_a_wish()
+
+                first_msg = 1
+
+            else:
+
+                processed_message = process_response(get_message())
+
             post_response(processed_message)
         
         else:
