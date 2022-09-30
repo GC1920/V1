@@ -27,7 +27,7 @@ def get_message():
     print(f"Mensagem recebida: {whatsapp_message}")
 
     return whatsapp_message
-    
+
 #Posta uma mensagem
 def post_response(message):
     global x, y
@@ -40,16 +40,14 @@ def post_response(message):
     pt.click()
     pt.typewrite(message, interval=.01)
 
-    pt.typewrite("\n", interval=.01)
+    #pt.typewrite("\n", interval=.01)
 
 #O cardapio
-def make_a_wish():
+def make_a_wish(message):
 
-    m = """Ola, eu sou seu assistente virtual, seja bem-vindo ao suporte do DTI. Por favor, selecione e me informe um numero que corresponde ao seu problema:
-            \n1 - Lorem ipsum sit amet\n2 - Lorem ipsum sit amet\n3 - Lorem ipsum sit amet\n4 - Lorem ipsum sit amet\n5 - Lorem ipsum sit amet
-            """
+    message = str("""Ola, eu sou seu assistente virtual, seja bem-vindo ao suporte do DTI. Por favor, selecione e me informe um numero que corresponde ao seu problema:""")
 
-    return m
+    return message
 
 #Processo de mensagens
 def process_response(message):
@@ -58,27 +56,19 @@ def process_response(message):
 
         case "1": 
 
-            return "Anakin Skywalker"
+            return "O suporte tecnico visa lhe auxiliar com problemas como: impossibilidade de conectar-se a internet, computador travando, nao abrindo programas, nao iniciando, mensagens de erro de procedencia duvidosa, nao conectando com impressora ou afins e auxilio em instalacao de programas e afins. Caso seu problema esteja dentre estes, por favor descreva-o."
         
         case "2":
 
-            return "Obi-Wan Kenobi"
+            return "Problemas de usuario ou acesso visa lhe auxiliar caso perca a senha de seu acesso, nao esteja conseguindo entrar em seu perfil ou tenha acessado o seu usuario em outra maquina e nao consiga mais acessar em sua propria. Caso seu problema se encaixe em uma das opcoes, por favor descreva-o."
 
         case "3":
 
-            return "Mestre Windu"
+            return "Virus ou perca de arquivos visa lhe auxiliar caso seu computador esteja apresentando sintomas incomuns, como apagar arquivos recentes ou especificos de sua maquina, criar arquivos de texto, pastas ou .exe suspeitos, esteja apresentando propagandas, janelas ou sites suspeitos sem que voce os acesse por conta propria ou caso tenha perdido um arquivo importante de forma desconhecida. Caso seu problema se encaixe em alguma das opcoes, por favor descreva-o."
 
         case "4":
 
-            return "Darth Tyrannus"
-
-        case "5":
-
-            return "Darth Sidius"
-
-        case "obrigado":
-
-            return "Não precisa agradecer :D"
+            return "Aparentemente seu problema nao se encaixa em nenhuma das alternativas, por favor, descreva detalhadamente seu problema e aguarde que sera repassado para um de nossos tecnicos."
 
         case _: 
 
@@ -109,7 +99,7 @@ def check_for_new_messages():
 
             if first_msg == 0:
 
-                processed_message = make_a_wish()
+                processed_message = make_a_wish(get_message())
 
                 first_msg = 1
 
